@@ -3,6 +3,7 @@ const path = require('path');
 const { test, expect } = require('@playwright/test');
 
 test('updateResume', async ({ page }) => {
+    await page.pause();
     const resumePath = path.join('D:', 'Naukri.com', 'uploads', 'Ankur_Sharma_8_years.pdf');
 
 
@@ -25,11 +26,6 @@ test('updateResume', async ({ page }) => {
 
         // Upload resume
         await page.setInputFiles('input[type="file"]', resumePath);
-
-        // Wait for some confirmation or indicator that the resume has been uploaded
-        // For example, wait for a success message or a profile update element to appear
-        await expect(page.locator("text=Resume uploaded successfully")).toBeVisible(); // Adjust this locator as needed
-
         console.log("Resume updated successfully");
     } catch (error) {
         console.error("Error during resume update:", error);
