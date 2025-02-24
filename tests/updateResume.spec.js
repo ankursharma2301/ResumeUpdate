@@ -1,33 +1,15 @@
-const fs = require('fs');
-const path = require('path');
-const { test, expect } = require('@playwright/test');
-
-test('updateResume', async ({ page }) => {
-    await page.pause();
-    const resumePath = path.join("uploads", "Ankur_Sharma_8_years.pdf");
+import{test,expect} from '@playwright/test'
 
 
-    // Ensure that the resume file exists
-    if (!fs.existsSync(resumePath)) {
-        console.log("Resume file not found in the uploads folder.");
-        return;
-    }
-
-    try {
-        await page.goto("https://www.naukri.com/");
-        await page.locator('#login_Layer').click();
-        await page.getByPlaceholder("Enter your active Email ID / Username").fill("ankursharma2301@gmail.com");
-        await page.getByPlaceholder("Enter your password").fill("Admin@1234");
-        await page.getByRole("button", { name: 'Login' }).first().click();
-        await expect(page).toHaveURL("https://www.naukri.com/mnjuser/homepage");
-
-        await page.getByText("View profile").click();
-        await expect(page).toHaveURL("https://www.naukri.com/mnjuser/profile");
-
-        // Upload resume
-        await page.setInputFiles('input[type="file"]', resumePath);
-        console.log("Resume updated successfully");
-    } catch (error) {
-        console.error("Error during resume update:", error);
-    }
+test('Resume_Headline', async ({ page }) => {
+  await page.goto('https://www.naukri.com/');
+  await page.getByRole('link', { name: 'Login', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Enter your active Email ID /' }).fill('ankursharma2301@gmail.com');
+  await page.getByRole('textbox', { name: 'Enter your password' }).fill('Admin@1234')
+  await page.getByRole('button', { name: 'Login', exact: true }).click();
+  await page.getByRole('link', { name: 'View profile' }).click();
+  await page.locator('#lazyResumeHead').getByText('editOneTheme').click();
+  await page.pause();
+  await page.getByRole('button', { name: 'Save' }).click();
+  await page.getByText('Resume Headline has been').click();
 });
