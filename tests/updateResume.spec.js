@@ -4,7 +4,7 @@ const { test, expect } = require('@playwright/test');
 
 test('updateResume', async ({ page }) => {
     await page.pause();
-    const resumePath = path.join('D:', 'Naukri.com', 'uploads', 'Ankur_Sharma_8_years.pdf');
+    const resumePath = path.join("uploads", "Ankur_Sharma_8_years.pdf");
 
 
     // Ensure that the resume file exists
