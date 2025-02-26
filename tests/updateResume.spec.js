@@ -9,7 +9,6 @@ test('Resume_Headline', async ({ page }) => {
   await page.getByRole('button', { name: 'Login', exact: true }).click();
   await page.getByRole('link', { name: 'View profile' }).click();
   await page.locator('#lazyResumeHead').getByText('editOneTheme').click();
-  await page.pause();
   await page.getByRole('button', { name: 'Save' }).click();
   await page.getByText('Resume Headline has been').click();
 });
